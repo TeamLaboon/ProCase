@@ -23,7 +23,7 @@ public class ProjectDescription extends Activity {
         textName.setText(name);
         textDesc.setText(desc);
         WebView myWebView = (WebView)findViewById(R.id.webView);
-        myWebView.loadUrl("http://flipbox.co.id");
+        myWebView.loadUrl("https://m.marvelapp.com/");
         myWebView.setWebViewClient(new WebViewClient());
     }
 
