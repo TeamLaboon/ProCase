@@ -118,14 +118,19 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public Project getProjectById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("select * from "+ TABLE_PROJECT +" where "+ PROJECT_ID +" = '" + id +"';", null);
-        cursor.moveToFirst();
-        if (cursor != null)
+        try {
+            Cursor cursor = db.rawQuery("select * from " + TABLE_PROJECT + " where " + PROJECT_ID + " = '" + id + "';", null);
             cursor.moveToFirst();
+            if (cursor != null)
+                cursor.moveToFirst();
 
-        Project project = new Project(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
-        // return project
-        return project;
+            Project project = new Project(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
+            // return project
+            return project;
+        }
+        catch (Exception e) {
+            return new Project(0, 0, "", "", "", "", "");
+        }
     }
 
     // cek ketersediaan company
@@ -211,11 +216,62 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return listProject;
     }
 
+    // Mengubah data Company
+    public int updateCompany(Company company) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COMPANY_ID, company.getID()); // CLient ID
+        values.put(COMPANY_NAME, company.getName()); // CLient Name
+        values.put(COMPANY_ADDRESS, company.getAddress()); // CLient Name
+        values.put(COMPANY_TOKEN, company.getToken()); // CLient Logo
+
+        // mengubah data
+        return db.update(TABLE_COMPANY, values, COMPANY_ID + " = ?",
+                new String[] { String.valueOf(company.getID()) });
+    }
+
+    // Mengubah data Project
+    public int updateProject(Project project) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(PROJECT_ID, project.getID()); // Project ID
+        values.put(PROJECT_COMPANY_ID, project.getCompanyID()); // Project company id
+        values.put(PROJECT_NAME, project.getName()); // Project name
+        values.put(PROJECT_TYPE, project.getType()); // Project type
+        values.put(PROJECT_LOGO, project.getLogo()); // Project logo
+        values.put(PROJECT_DESCRIPTION, project.getDescription()); // Project description
+        values.put(PROJECT_PROTOTYPE, project.getPrototype()); // Project prototype
+
+        // mengubah data
+        return db.update(TABLE_PROJECT, values, PROJECT_ID + " = ?",
+                new String[] { String.valueOf(project.getID()) });
+    }
+
     // Menghapus data company
-    public void deleteContact(Company company) {
+    public void deleteCompany(Company company) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_COMPANY, COMPANY_ID + " = ?",
                 new String[]{String.valueOf(company.getID())});
         db.close();
+    }
+
+    // Menghapus data project
+    public void deleteProject(Project project) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PROJECT, PROJECT_ID + " = ?",
+                new String[]{String.valueOf(project.getID())});
+        db.close();
+    }
+
+    public void deleteAll(){
+
+       /* String selectQuery = "DELETE FROM "+ TABLE_PROJECT + ";";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.rawQuery(selectQuery, null);
+        selectQuery = "DELETE FROM "+ TABLE_COMPANY + ";";
+        db.rawQuery(selectQuery, null);
+        */
     }
 }

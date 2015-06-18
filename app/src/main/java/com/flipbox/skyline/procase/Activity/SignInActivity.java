@@ -46,12 +46,11 @@ public class SignInActivity extends Activity {
         btnMakeObjectRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText clientid = (EditText)findViewById(R.id.editText);
+                EditText clientid = (EditText) findViewById(R.id.editText);
                 String textClientid = clientid.getText().toString();
                 if (textClientid.equals("")) {
                     Toast.makeText(SignInActivity.this, "Isi User ID !  !!", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     checkToken(textClientid);
                 }
             }
@@ -98,7 +97,13 @@ public class SignInActivity extends Activity {
                         String address = company.getString("address");
                         String _token = company.getString("token");
 
-                        database.addCompany(new Company(Integer.parseInt(id), name, address, _token));
+                        Company cek_company = database.getCompanyById(Integer.parseInt(id));
+                        if(cek_company.getID()==0){
+                            database.addCompany(new Company(Integer.parseInt(id), name, address, _token));
+                        }
+                        else{
+                            database.updateCompany(new Company(Integer.parseInt(id), name, address, _token));
+                        }
                         insertPrototypeIntoDatabseByCompanyId(Integer.parseInt(id));
                     }
                 }
@@ -141,7 +146,13 @@ public class SignInActivity extends Activity {
                         String description = prototypes.getString("prototype_information");
                         String prototype = prototypes.getString("prototype");
 
-                        database.addProject(new Project(Integer.parseInt(id), Integer.parseInt(company_id), name, type, logo, description, prototype));
+                        Project cek_project = database.getProjectById(Integer.parseInt(id));
+                        if(cek_project.getID()==0){
+                            database.addProject(new Project(Integer.parseInt(id), Integer.parseInt(company_id), name, type, logo, description, prototype));
+                        }
+                        else{
+                            database.updateProject(new Project(Integer.parseInt(id), Integer.parseInt(company_id), name, type, logo, description, prototype));
+                        }
                     }
                 }
                 catch (JSONException e){
