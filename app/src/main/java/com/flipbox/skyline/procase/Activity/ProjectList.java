@@ -40,7 +40,7 @@ public class ProjectList extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poject_list);
-        Intent intent = getIntent();
+/*        Intent intent = getIntent();
         clientID = intent.getStringExtra(SignInActivity.EXTRA_MESSAGE_CID);
         database = new DataBaseHandler(this);
         User clientData = database.getUser(Integer.valueOf(clientID));
@@ -50,7 +50,7 @@ public class ProjectList extends ListActivity {
       //  layout = (LinearLayout) findViewById(R.id.progressbar_view);
         myAdapter = new customAdapter();
         setListAdapter(myAdapter);
-    }
+*/    }
 
     public void onListItemClick(ListView l, View v, int position, long id) {
         dataProject project = myAdapter.getDataValue(position);
@@ -112,7 +112,7 @@ public class ProjectList extends ListActivity {
     public List<dataProject> dataProjectListView(){
 
         List<dataProject> dataProjectList = new ArrayList<dataProject>();
-        ArrayList<Project> ProjectList = database.getAllProjectsByUserID(Integer.parseInt(clientID));
+   /*     ArrayList<Project> ProjectList = database.getAllProjectsByUserID(Integer.parseInt(clientID));
 
        //for(int i = 1;i<=ProjectList.size();i++){
           //for(int i=1;i<10;i++){
@@ -125,7 +125,7 @@ public class ProjectList extends ListActivity {
             dataProjectList.add(project);
         }
 
-        return dataProjectList;
+     */   return dataProjectList;
     }
 
 /*

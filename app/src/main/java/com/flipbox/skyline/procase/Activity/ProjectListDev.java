@@ -1,5 +1,6 @@
 package com.flipbox.skyline.procase.Activity;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.flipbox.skyline.procase.Database.Client;
 import com.flipbox.skyline.procase.Database.DataBaseHandler;
 import com.flipbox.skyline.procase.Database.Project;
 import com.flipbox.skyline.procase.R;
+import com.flipbox.skyline.procase.app.JSONParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +23,22 @@ import java.util.List;
 
 public class ProjectListDev extends ListActivity {
     private DataBaseHandler database;
+    JSONParser jsonParser;
+    private int company_id;
+    private String token;
     private String clientID;
     // LinearLayout layout;
     // ListView listView;
     // List<String> stringValues;
     public final static String EXTRA_MESSAGE_NAME = "com.flipbox.skyline.procase.MESSAGENAME";
     public final static String EXTRA_MESSAGE_DESC = "com.flipbox.skyline.procase.MESSAGEDESC";
+    public final static String EXTRA_MESSAGE_PROTOTYPE = "com.flipbox.skyline.procase.MESSAGEPROTOTYPE";
     customAdapter myAdapter;
     public class dataProject{
         String nama;
         String type;
         String description;
+        String prototype;
         String urlLogo;
         String projectID;
     }
@@ -39,7 +46,12 @@ public class ProjectListDev extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_list_dev);
+
+        Intent intent = getIntent();
+        token = intent.getStringExtra(SignInActivity.EXTRA_MESSAGE_CID);
         database = new DataBaseHandler(this);
+
+
         //  layout = (LinearLayout) findViewById(R.id.progressbar_view);
         myAdapter = new customAdapter();
         setListAdapter(myAdapter);
@@ -52,8 +64,10 @@ public class ProjectListDev extends ListActivity {
         Intent projectDesc = new Intent(ProjectListDev.this, ProjectDescription.class);
         String messageName = project.nama;
         String messageDesc = project.description;
+        String messagePrototype = project.prototype;
         projectDesc.putExtra(EXTRA_MESSAGE_NAME,messageName);
         projectDesc.putExtra(EXTRA_MESSAGE_DESC,messageDesc);
+        projectDesc.putExtra(EXTRA_MESSAGE_PROTOTYPE,messagePrototype);
         startActivity(projectDesc);
     }
     public class customAdapter extends BaseAdapter{
@@ -107,16 +121,16 @@ public class ProjectListDev extends ListActivity {
     public List<dataProject> dataProjectListView(){
 
         List<dataProject> dataProjectList = new ArrayList<dataProject>();
-        ArrayList<Project> ProjectList = database.getAllProjects();
+        company_id = database.getCompanyIdByToken(token);
+        ArrayList<Project> ProjectList = database.getAllProjectsByCompanyId(company_id);
 
-        //for(int i = 1;i<=ProjectList.size();i++){
-        //for(int i=1;i<10;i++){
         for(Project value : ProjectList){
             //value = new Project();
             dataProject project = new dataProject();
             project.nama =value.getName();
             project.description = value.getDescription();
             project.type =value.getType();
+            project.prototype=value.getPrototype();
             dataProjectList.add(project);
         }
 

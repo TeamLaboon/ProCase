@@ -5,7 +5,7 @@ package com.flipbox.skyline.procase.Database;
  */
 public class Project {
     private int _id;
-    private int _user_id;
+    private int _company_id;
     private String _name;
     private String _type;
     private String _logo;
@@ -20,9 +20,9 @@ public class Project {
         this._description = description;
         this._prototype = prototype;
     }
-    public Project(int id, int user_id, String name, String type, String logo, String description, String prototype){
+    public Project(int id, int company_id, String name, String type, String logo, String description, String prototype){
         this._id = id;
-        this._user_id = user_id;
+        this._company_id = company_id;
         this._name = name;
         this._type = type;
         this._logo = logo;
@@ -33,8 +33,8 @@ public class Project {
     public int getID() { return this._id; }
     public void setID(int id){ this._id = id; }
 
-    public int getUserID() { return this._user_id; }
-    public void setUserID(int userID){ this._user_id = userID; }
+    public int getCompanyID() { return this._company_id; }
+    public void setCompanyID(int companyID){ this._company_id = companyID; }
 
     public String getName(){return this._name;}
     public void setName(String name){this._name = name;}
