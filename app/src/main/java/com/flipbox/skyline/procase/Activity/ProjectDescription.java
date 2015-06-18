@@ -16,9 +16,9 @@ public class ProjectDescription extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_description);
-     //   Bundle intent = getIntent().getExtras();
-      //  String name = intent.getString(ProjectList.EXTRA_MESSAGE_NAME);
-       // String desc = intent.getString(ProjectList.EXTRA_MESSAGE_DESC);
+        Bundle intent = getIntent().getExtras();
+        //String name = intent.getString(ProjectList.EXTRA_MESSAGE_NAME);
+        String prototype = intent.getString(ProjectListDev.EXTRA_MESSAGE_PROTOTYPE);
       //  TextView textName = (TextView)findViewById(R.id.textView6);
       //  TextView textDesc = (TextView)findViewById(R.id.textView7);
       //  textName.setText(name);
@@ -31,7 +31,7 @@ public class ProjectDescription extends Activity {
        // webView.setWebViewClient(webViewClient);
        // MyWebViewClient webViewClient = new MyWebViewClient(this);
 
-        myWebView.loadUrl("https://m.marvelapp.com/b64a10#5494936");
+        myWebView.loadUrl(prototype);
         myWebView.setWebViewClient(new MyWebViewClient());
       //  myWebView.setWebViewClient(new WebViewClient());
     }

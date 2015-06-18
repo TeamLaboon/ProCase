@@ -45,7 +45,6 @@
         android:layout_height="wrap_content"
         android:text="Sign In"
         android:id="@+id/button"
-        android:onClick="sendMessage"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true" />
 
