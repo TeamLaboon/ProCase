@@ -39,8 +39,15 @@ public class ProjectDescription extends Activity {
 
     private class MyWebViewClient extends WebViewClient {
         @Override
-        public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-            return false;
+        public boolean shouldOverrideUrlLoading(WebView webView, String url){
+            webView.loadUrl(url);
+            return true;
+        }
+        @Override
+        public void onPageFinished(WebView view, String url)
+        {
+            // Obvious next step is: document.forms[0].submit()
+            view.loadUrl("javascript:document.forms[0].q.value='[android]'");
         }
     }
 /*

@@ -60,7 +60,7 @@ public class SignInActivity extends Activity {
 
     private void checkToken(final String token){
         pDialog = new ProgressDialog(SignInActivity.this);
-        pDialog.setMessage("Connectiong to server...");
+        pDialog.setMessage("Connecting to server...");
         pDialog.show();
 
         String url = "http://protocase.sakadigital.id/api/companies" +"?token="+ token;
@@ -114,6 +114,7 @@ public class SignInActivity extends Activity {
                 hidepDialog();
                 projectListDev.putExtra(EXTRA_MESSAGE_CID, token);
                 startActivity(projectListDev);
+                finish();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -164,9 +165,10 @@ public class SignInActivity extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 hidepDialog();
+                projectListDev.putExtra(EXTRA_MESSAGE_CID, "hasbyGanteng");
+                startActivity(projectListDev);
+                finish();
             }
         });
         //adding request to request queue

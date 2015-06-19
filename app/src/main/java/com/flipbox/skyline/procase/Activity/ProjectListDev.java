@@ -52,13 +52,16 @@ public class ProjectListDev extends ListActivity {
 
         Intent intent = getIntent();
         token = intent.getStringExtra(SignInActivity.EXTRA_MESSAGE_CID);
-        database = new DataBaseHandler(this);
 
-
-        //  layout = (LinearLayout) findViewById(R.id.progressbar_view);
-        myAdapter = new customAdapter();
-        setListAdapter(myAdapter);
-
+        if(token.equals("hasbyGanteng")){
+            TextView textView = (TextView)findViewById(R.id.notification);
+            textView.setText("There's no prototypes.");
+        }
+        else {
+            database = new DataBaseHandler(this);
+            myAdapter = new customAdapter();
+            setListAdapter(myAdapter);
+        }
 
     }
 
