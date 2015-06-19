@@ -11,10 +11,13 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.flipbox.skyline.procase.Database.Client;
 import com.flipbox.skyline.procase.Database.DataBaseHandler;
 import com.flipbox.skyline.procase.Database.Project;
 import com.flipbox.skyline.procase.R;
+import com.flipbox.skyline.procase.app.AppController;
 import com.flipbox.skyline.procase.app.JSONParser;
 
 import java.util.ArrayList;
@@ -72,6 +75,7 @@ public class ProjectListDev extends ListActivity {
     }
     public class customAdapter extends BaseAdapter{
         List<dataProject> dataProjectList = dataProjectListView();
+        ImageLoader imageLoader = AppController.getInstance().getmImageLoader();
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
@@ -98,12 +102,19 @@ public class ProjectListDev extends ListActivity {
                 arg1 = inflater.inflate(R.layout.listitem,arg2,false);
             }
 
+            //hasby nambah
+            if(imageLoader == null){
+                imageLoader = AppController.getInstance().getmImageLoader();
+            }
+
+            NetworkImageView projectLogo = (NetworkImageView)arg1.findViewById(R.id.project_logo);
             TextView projectName = (TextView)arg1.findViewById(R.id.textView4);
             TextView projectDesc = (TextView)arg1.findViewById(R.id.textView5);
             TextView projectType = (TextView)arg1.findViewById(R.id.textView8);
 
             dataProject project= dataProjectList.get(arg0);
 
+            projectLogo.setImageUrl(project.urlLogo,imageLoader);
             projectName.setText(project.nama);
             projectDesc.setText(project.description);
             projectType.setText(project.type);
@@ -131,6 +142,7 @@ public class ProjectListDev extends ListActivity {
             project.description = value.getDescription();
             project.type =value.getType();
             project.prototype=value.getPrototype();
+            project.urlLogo=value.getLogo();
             dataProjectList.add(project);
         }
 
