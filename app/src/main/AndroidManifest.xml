@@ -5,11 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.flipbox.skyline.procase.app.AppController">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".Activity.LandingPage"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -35,7 +35,11 @@
         </activity>
         <activity
             android:name=".Activity.SignInActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".Activity.util.PrototypeActivity"
+            android:label="@string/title_activity_prototype" >
         </activity>
     </application>
 

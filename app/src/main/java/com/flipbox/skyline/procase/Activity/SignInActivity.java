@@ -78,6 +78,7 @@ public class SignInActivity extends Activity {
             }
         });
         //adding request to request queue
+
         AppController.getInstance().addToRequestQueue(req);
     }
 
@@ -104,7 +105,7 @@ public class SignInActivity extends Activity {
                         else{
                             database.updateCompany(new Company(Integer.parseInt(id), name, address, _token));
                         }
-                        insertPrototypeIntoDatabseByCompanyId(Integer.parseInt(id));
+                        insertPrototypeIntoDatabseByCompanyId(Integer.parseInt(id), token);
                     }
                 }
                 catch (JSONException e){
@@ -112,9 +113,6 @@ public class SignInActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 hidepDialog();
-                projectListDev.putExtra(EXTRA_MESSAGE_CID, token);
-                startActivity(projectListDev);
-                finish();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -128,7 +126,7 @@ public class SignInActivity extends Activity {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    public void insertPrototypeIntoDatabseByCompanyId(int company_id){
+    public void insertPrototypeIntoDatabseByCompanyId(int company_id, final String token){
         showpDialog("Collecting Data Prototypes...");
         String url = urlJsonPrototypes +"?company_id="+ company_id;
         JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>(){
@@ -161,6 +159,9 @@ public class SignInActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 hidepDialog();
+                projectListDev.putExtra(EXTRA_MESSAGE_CID, token);
+                startActivity(projectListDev);
+                finish();
             }
         }, new Response.ErrorListener() {
             @Override

@@ -12,4 +12,5 @@
     <string name="title_activity_landing_page">PROTOTYPE SHOWCASE</string>
     <string name="dummy_button">SignIn</string>
     <string name="dummy_content">PROTOCASE</string>
+    <string name="title_activity_prototype">PrototypeActivity</string>
 </resources>

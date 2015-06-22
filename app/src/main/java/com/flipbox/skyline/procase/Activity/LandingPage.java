@@ -122,6 +122,7 @@ public class LandingPage extends Activity {
     public void goToSignIn(View v){
         Intent intent = new Intent(LandingPage.this, SignInActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

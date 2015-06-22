@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.flipbox.skyline.procase.Activity.util.PrototypeActivity;
 import com.flipbox.skyline.procase.Database.Client;
 import com.flipbox.skyline.procase.Database.DataBaseHandler;
 import com.flipbox.skyline.procase.Database.Project;

@@ -267,11 +267,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
     public void deleteAll(){
 
-       /* String selectQuery = "DELETE FROM "+ TABLE_PROJECT + ";";
+        String selectQuery = "DELETE FROM "+ TABLE_PROJECT + ";";
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery(selectQuery, null);
+        db.execSQL(selectQuery);
         selectQuery = "DELETE FROM "+ TABLE_COMPANY + ";";
-        db.rawQuery(selectQuery, null);
-        */
+        db.execSQL(selectQuery);
+
     }
 }
