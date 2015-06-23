@@ -2,39 +2,39 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Hasby\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-d9f83fcf0c5ac7b44def170e1ac37e7a7d7e44a2.jar" />
-    </item>
-    <item
-        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\classes-8a464c5ca6514261e068d0d02a38b8da9c08ded8.jar" />
-    </item>
-    <item
-        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\libs\volley.jar"
+        jar="D:\Mobile\PROJECT\ProCase\app\libs\volley.jar"
         jumboMode="false"
         revision="23.0.0 rc2"
         sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\volley-f31a8cff50f1a71b91244d5ae8f3f76ad8da329c.jar" />
+        <dex dex="D:\Mobile\PROJECT\ProCase\app\build\intermediates\pre-dexed\debug\volley-688f5c8d945c9ececdf060b4156b7dcd97ea888a.jar" />
     </item>
     <item
-        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jar="C:\Users\putradiikaa\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
         jumboMode="false"
         revision="23.0.0 rc2"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\classes-e270954a9d5dbdf7b434a8b1bce5fbe056230366.jar" />
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="D:\Mobile\PROJECT\ProCase\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-27bda38577900de24026a1420638922322d13324.jar" />
     </item>
     <item
-        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jar="D:\Mobile\PROJECT\ProCase\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="D:\Mobile\PROJECT\ProCase\app\build\intermediates\pre-dexed\debug\classes-f51e43016feeeec8438ba5f09e192a075da97754.jar" />
+    </item>
+    <item
+        jar="D:\Mobile\PROJECT\ProCase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
         jumboMode="false"
         revision="23.0.0 rc2"
         sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-750f1a94e1979086c9f4602d33602d1dd44c8871.jar" />
+        <dex dex="D:\Mobile\PROJECT\ProCase\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-7eddba3765c305919785e5eafbbe65784d9ecb0c.jar" />
+    </item>
+    <item
+        jar="D:\Mobile\PROJECT\ProCase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="D:\Mobile\PROJECT\ProCase\app\build\intermediates\pre-dexed\debug\classes-7d0e6235ac9c4a03207a625334c295a4dcbfd39a.jar" />
     </item>
 
 </items>
