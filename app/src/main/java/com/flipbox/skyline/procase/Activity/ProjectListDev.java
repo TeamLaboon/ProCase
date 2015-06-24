@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
@@ -64,6 +65,7 @@ import java.util.List;
             Intent intent = getIntent();
             token = intent.getStringExtra(SignInActivity.EXTRA_MESSAGE_CID);
             myListView = (ListView) findViewById(R.id.list);
+
 
           //  handleIntent(getIntent());
             if (token.equals("hasbyGanteng")) {
@@ -178,15 +180,33 @@ import java.util.List;
 
                 NetworkImageView projectLogo = (NetworkImageView) arg1.findViewById(R.id.project_logo);
                 TextView projectName = (TextView) arg1.findViewById(R.id.textView4);
-                TextView projectDesc = (TextView) arg1.findViewById(R.id.textView5);
+                final TextView projectDesc = (TextView) arg1.findViewById(R.id.textView5);
                 TextView projectType = (TextView) arg1.findViewById(R.id.textView8);
+                ImageButton shareButton = (ImageButton) arg1.findViewById(R.id.shareButton);
 
-                dataProject project = dataProjectList.get(arg0);
+                final dataProject project = dataProjectList.get(arg0);
 
                 projectLogo.setImageUrl(project.urlLogo, imageLoader);
                 projectName.setText(project.nama);
                 projectDesc.setText(project.description);
                 projectType.setText(project.type);
+
+                shareButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        String teks = project.nama.toString()
+                                +"\n\n"+project.description.toString()
+                                +"\n"+project.prototype.toString();
+
+                        Intent textShareIntent = new Intent(Intent.ACTION_SEND);
+                        textShareIntent.putExtra(Intent.EXTRA_TEXT, teks);
+                        textShareIntent.setType("text/plain");
+
+                        startActivity(Intent.createChooser(textShareIntent, "Share to..."));
+                    }
+                });
+
                 return arg1;
             }
 
