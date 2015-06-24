@@ -1,18 +1,26 @@
 package com.flipbox.skyline.procase.Activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.flipbox.skyline.procase.Database.Client;
 import com.flipbox.skyline.procase.Database.Company;
 import com.flipbox.skyline.procase.Database.User;
@@ -25,6 +33,7 @@ import com.flipbox.skyline.procase.app.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 
 public class SignInActivity extends Activity {
@@ -39,25 +48,11 @@ public class SignInActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         database = new DataBaseHandler(this);
         projectListDev = new Intent(this,ProjectListDev.class);
 
-        Button btnMakeObjectRequest = (Button)findViewById(R.id.button);
-        btnMakeObjectRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText clientid = (EditText) findViewById(R.id.editText);
-                String textClientid = clientid.getText().toString();
-                if (textClientid.equals("")) {
-                    Toast.makeText(SignInActivity.this, "Isi User ID !  !!", Toast.LENGTH_LONG).show();
-                } else {
-                    checkToken(textClientid);
-                }
-            }
-        });
-
     }
-
     private void checkToken(final String token){
         pDialog = new ProgressDialog(SignInActivity.this);
         pDialog.setMessage("Connecting to server...");
@@ -187,6 +182,19 @@ public class SignInActivity extends Activity {
             pDialog.dismiss();
     }
 
+    public void autentikasi(View v){
+        EditText clientid = (EditText) findViewById(R.id.editText);
+        String textClientid = clientid.getText().toString();
+        if (textClientid.equals("")) {
+            Toast.makeText(SignInActivity.this, "Isi Token !  !!", Toast.LENGTH_LONG).show();
+
+        } else {
+            checkToken(textClientid);
+        }
+
+
+        YoYo.with(Techniques.Wobble).duration(700).playOn(findViewById(R.id.textHeader));
+    }
 
 
 
