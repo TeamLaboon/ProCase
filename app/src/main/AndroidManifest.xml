@@ -31,7 +31,11 @@
         </activity>
         <activity
             android:name=".Activity.ProjectListDev"
-            android:label="@string/title_activity_project_list_dev" >
+            android:label="@string/title_activity_project_list_dev"
+            android:launchMode="singleTop" >
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".Activity.SignInActivity"
@@ -40,6 +44,20 @@
         <activity
             android:name=".Activity.util.PrototypeActivity"
             android:label="@string/title_activity_prototype" >
+        </activity>
+        <activity
+            android:name=".Activity.SearchResultActivty"
+            android:label="@string/title_activity_search_result_activty" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:value=".SearchResultActivity"
+                 />
         </activity>
     </application>
 
