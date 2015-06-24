@@ -6,11 +6,11 @@
     <string name="title_activity_project_list">ProjectList</string>
     <string name="title_activity_project_description">ProjectDescription</string>
 
-    <string name="enter_client_id">Please Enter Your Client ID</string>
+    <string name="enter_client_id">Please Enter Your Token</string>
     <string name="title_activity_project_list_dev">All Project List</string>
 
     <string name="title_activity_landing_page">PROTOTYPE SHOWCASE</string>
-    <string name="dummy_button">SignIn</string>
+    <string name="dummy_button">Sign In</string>
     <string name="dummy_content">PROTOCASE</string>
     <string name="title_activity_prototype">PrototypeActivity</string>
 </resources>
