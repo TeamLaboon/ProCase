@@ -56,4 +56,15 @@
         android:id="@+id/textView8"
         android:layout_below="@+id/textView5"
         android:layout_alignStart="@+id/textView5" />
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/shareImage"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_share"
+        android:layout_alignBottom="@+id/textView8"
+        android:layout_alignParentTop="true" />
+
+
 </RelativeLayout>

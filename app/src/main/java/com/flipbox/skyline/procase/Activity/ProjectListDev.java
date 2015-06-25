@@ -17,8 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
@@ -64,6 +66,7 @@ import java.util.List;
             Intent intent = getIntent();
             token = intent.getStringExtra(SignInActivity.EXTRA_MESSAGE_CID);
             myListView = (ListView) findViewById(R.id.list);
+
 
           //  handleIntent(getIntent());
             if (token.equals("hasbyGanteng")) {
@@ -180,12 +183,30 @@ import java.util.List;
                 TextView projectDesc = (TextView) arg1.findViewById(R.id.textView5);
                 TextView projectType = (TextView) arg1.findViewById(R.id.textView8);
 
-                dataProject project = dataProjectList.get(arg0);
+                final dataProject project = dataProjectList.get(arg0);
 
                 projectLogo.setImageUrl(project.urlLogo, imageLoader);
                 projectName.setText(project.nama);
                 projectDesc.setText(project.description);
                 projectType.setText(project.type);
+
+                ImageView shareImage = (ImageView)arg1.findViewById(R.id.shareImage);
+                shareImage.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        String text = project.nama
+                                + "\n\n" + project.description
+                                + "\n" + project.prototype;
+
+                        Intent textShareIntent = new Intent(Intent.ACTION_SEND);
+                        textShareIntent.putExtra(Intent.EXTRA_TEXT, text);
+                        textShareIntent.setType("text/plain");
+
+                        startActivity(Intent.createChooser(textShareIntent, "Share to..."));
+                    }
+                });
+
                 return arg1;
             }
 
