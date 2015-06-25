@@ -95,13 +95,13 @@ import java.util.List;
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             getMenuInflater().inflate(R.menu.menu_project_list_dev, menu);
-           /* SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setIconifiedByDefault(false);
             searchView.setSubmitButtonEnabled(true);
             //searchView.setOnQueryTextListener(this);
-
+        /*
 
         SearchView.OnQueryTextListener textChangeListener = new SearchView.OnQueryTextListener() {
             @Override
@@ -124,21 +124,20 @@ import java.util.List;
             return true;
 
         }
-/*
-        @Override
+
+     /*   @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == R.id.action_search) {
-                Intent search = new Intent(this,SearchResultActivty.class);
-                startActivity(search);
-               // onSearchRequested();
+            //    Intent search = new Intent(this,SearchResultActivty.class);
+              //  startActivity(search);
                 return true;
             }
             if (id == R.id.action_settings) {
                 return true;
             }
             return super.onOptionsItemSelected(item);
-        }*/
+        } */
 
         // public class customAdapter extends BaseAdapter implements Filterable {
         public class customAdapter extends BaseAdapter {

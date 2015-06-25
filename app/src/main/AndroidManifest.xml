@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.flipbox.skyline.procase" >
-    <uses-sdk android:minSdkVersion="15"  android:targetSdkVersion="18" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -34,8 +34,8 @@
             android:label="@string/title_activity_project_list_dev"
             android:launchMode="singleTop" >
             <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".SearchResultActivity" />
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".Activity.SignInActivity"
@@ -56,7 +56,7 @@
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable"
+                android:value=".SearchResultActivity"
                  />
         </activity>
     </application>
