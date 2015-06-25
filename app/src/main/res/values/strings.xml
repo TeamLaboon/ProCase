@@ -16,4 +16,5 @@
     <string name="dummy_content">PROTOCASE</string>
     <string name="title_activity_prototype">PrototypeActivity</string>
     <string name="title_activity_search_result_activty">SearchResultActivty</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>
