@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ import java.util.List;
         private ListView myListView;
         private DataBaseHandler database;
         JSONParser jsonParser;
+        private Toolbar mToolbar;
         private int company_id;
         private String token;
         public final static String EXTRA_MESSAGE_NAME = "com.flipbox.skyline.procase.MESSAGENAME";
@@ -61,12 +63,15 @@ import java.util.List;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_project_list_dev);
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
+
             Intent intent = getIntent();
             token = intent.getStringExtra(SignInActivity.EXTRA_MESSAGE_CID);
             myListView = (ListView) findViewById(R.id.list);
 
+            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
 
           //  handleIntent(getIntent());
             if (token.equals("hasbyGanteng")) {
@@ -98,51 +103,18 @@ import java.util.List;
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             getMenuInflater().inflate(R.menu.menu_project_list_dev, menu);
-            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-            SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setIconifiedByDefault(false);
-            searchView.setSubmitButtonEnabled(true);
-            //searchView.setOnQueryTextListener(this);
-        /*
-
-        SearchView.OnQueryTextListener textChangeListener = new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                    myListView.clearTextFilter();
-                } else {
-                    myListView.setFilterText(newText.toString());
-                }
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-        };
-        searchView.setOnQueryTextListener(textChangeListener);*/
             return true;
-
         }
 
-     /*   @Override
+        @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
-            if (id == R.id.action_search) {
-            //    Intent search = new Intent(this,SearchResultActivty.class);
-              //  startActivity(search);
-                return true;
-            }
             if (id == R.id.action_settings) {
                 return true;
             }
             return super.onOptionsItemSelected(item);
-        } */
+        }
 
-        // public class customAdapter extends BaseAdapter implements Filterable {
         public class customAdapter extends BaseAdapter {
             List<dataProject> dataProjectList = dataProjectListView();
             ImageLoader imageLoader = AppController.getInstance().getmImageLoader();
@@ -234,17 +206,4 @@ import java.util.List;
             }
             return dataProjectList;
         }
-
-     /*   @Override
-        protected void onNewIntent(Intent intent) {
-            handleIntent(intent);
-        }
-
-        private void handleIntent(Intent intent) {
-
-            if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-                String query = intent.getStringExtra(SearchManager.QUERY);
-                //use the query to search your data somehow
-            }
-        }*/
     }
