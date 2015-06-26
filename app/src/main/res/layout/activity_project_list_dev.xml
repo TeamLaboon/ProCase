@@ -9,6 +9,39 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        tools:context="com.flipbox.skyline.procase.Activity.ProjectList">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/textColorPrimary"
+                android:id="@+id/companyName"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="10dp" />
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/companyLogo"
+                android:src="@drawable/loading_icon"
+                android:layout_below="@+id/companyName"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="10dp"/> />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/companyAddress"
+                android:layout_below="@+id/companyLogo"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="15dp"/>
+    </RelativeLayout>
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

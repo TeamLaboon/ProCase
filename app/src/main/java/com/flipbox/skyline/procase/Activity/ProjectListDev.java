@@ -4,9 +4,11 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.internal.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,8 +27,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
+
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.flipbox.skyline.procase.Database.Company;
 import com.flipbox.skyline.procase.Database.DataBaseHandler;
 import com.flipbox.skyline.procase.Database.Project;
 import com.flipbox.skyline.procase.R;
@@ -41,6 +46,7 @@ import java.util.List;
     public class ProjectListDev extends ActionBarActivity {
         private ListView myListView;
         private DataBaseHandler database;
+        ImageLoader imageLoader = AppController.getInstance().getmImageLoader();
         JSONParser jsonParser;
         private Toolbar mToolbar;
         private int company_id;
@@ -63,12 +69,25 @@ import java.util.List;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_project_list_dev);
+            TextView companyName = (TextView)findViewById(R.id.companyName);
+            NetworkImageView companyLogo = (NetworkImageView) findViewById(R.id.companyLogo);
+            TextView companyAddress = (TextView)findViewById(R.id.companyAddress);
+            myListView = (ListView) findViewById(R.id.list);
+            mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
             Intent intent = getIntent();
             token = intent.getStringExtra(SignInActivity.EXTRA_MESSAGE_CID);
-            myListView = (ListView) findViewById(R.id.list);
+            database = new DataBaseHandler(this);
+            company_id = database.getCompanyIdByToken(token);
 
-            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            Company company = database.getCompanyById(company_id);
+            companyName.setText(company.getName());
+            companyAddress.setText(company.getAddress());
+            if (imageLoader == null) {
+                imageLoader = AppController.getInstance().getmImageLoader();
+            }
+            companyLogo.setImageUrl("http://sakadigital.id/assets/img/paperplane.png", imageLoader);
+
 
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -78,7 +97,6 @@ import java.util.List;
                 TextView textView = (TextView) findViewById(R.id.notification);
                 textView.setText("There's no prototypes.");
             } else {
-                database = new DataBaseHandler(this);
                 myAdapter = new customAdapter();
                 myListView.setAdapter(myAdapter);
                 myListView.setTextFilterEnabled(true);
@@ -103,6 +121,17 @@ import java.util.List;
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             getMenuInflater().inflate(R.menu.menu_project_list_dev, menu);
+
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+/*            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(ProjectListDev.this, "Search clicked !!", Toast.LENGTH_LONG).show();
+                }
+            });
+*/
             return true;
         }
 
@@ -117,7 +146,6 @@ import java.util.List;
 
         public class customAdapter extends BaseAdapter {
             List<dataProject> dataProjectList = dataProjectListView();
-            ImageLoader imageLoader = AppController.getInstance().getmImageLoader();
 
             @Override
             public int getCount() {
@@ -191,7 +219,6 @@ import java.util.List;
         public List<dataProject> dataProjectListView() {
 
             List<dataProject> dataProjectList = new ArrayList<dataProject>();
-            company_id = database.getCompanyIdByToken(token);
             ArrayList<Project> ProjectList = database.getAllProjectsByCompanyId(company_id);
 
             for (Project value : ProjectList) {
