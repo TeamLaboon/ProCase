@@ -139,7 +139,21 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         try {
             Cursor cursor = db.rawQuery("select * from "+ TABLE_COMPANY +" where "+ COMPANY_TOKEN +" = '" + token +"';", null);
             cursor.moveToFirst();
-            if (token.equals(cursor.getString(0)))return true;
+            if (token.equals(cursor.getString(cursor.getColumnIndex(COMPANY_TOKEN))))return true;
+            else return false;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    // cek ketersediaan company
+    public boolean isProject(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("select * from "+ TABLE_PROJECT +" where "+ PROJECT_COMPANY_ID +" = '" + id +"';", null);
+            cursor.moveToFirst();
+            if (id == cursor.getInt(cursor.getColumnIndex(PROJECT_COMPANY_ID)))return true;
             else return false;
         }
         catch (Exception e) {

@@ -3,15 +3,16 @@ package com.flipbox.skyline.procase.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.internal.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,10 +41,15 @@ import com.flipbox.skyline.procase.app.JSONParser;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.support.v7.widget.SearchView;
 
 
     //public class ProjectListDev extends ActionBarActivity implements OnQueryTextListener {
-    public class ProjectListDev extends ActionBarActivity {
+    public class ProjectListDev extends ActionBarActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+        public static final String DEFAULT = "N/A";
+        private SharedPreferences sharedPreferences;
+        private SharedPreferences.Editor editor;
+        private String query="";
         private ListView myListView;
         private DataBaseHandler database;
         ImageLoader imageLoader = AppController.getInstance().getmImageLoader();
@@ -57,7 +63,7 @@ import java.util.List;
 
         customAdapter myAdapter;
 
-        public class dataProject {
+       public class dataProject {
             String nama;
             String type;
             String description;
@@ -69,17 +75,20 @@ import java.util.List;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_project_list_dev);
-            TextView companyName = (TextView)findViewById(R.id.companyName);
-            NetworkImageView companyLogo = (NetworkImageView) findViewById(R.id.companyLogo);
-            TextView companyAddress = (TextView)findViewById(R.id.companyAddress);
             myListView = (ListView) findViewById(R.id.list);
-            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
             Intent intent = getIntent();
-            token = intent.getStringExtra(SignInActivity.EXTRA_MESSAGE_CID);
+            sharedPreferences = getApplicationContext().getSharedPreferences("DataClient", Context.MODE_PRIVATE);
+            editor = sharedPreferences.edit();
+            token = sharedPreferences.getString("token", DEFAULT);
+
             database = new DataBaseHandler(this);
             company_id = database.getCompanyIdByToken(token);
 
+            TextView companyName = (TextView)findViewById(R.id.companyName);
+            NetworkImageView companyLogo = (NetworkImageView) findViewById(R.id.companyLogo);
+            TextView companyAddress = (TextView)findViewById(R.id.companyAddress);
             Company company = database.getCompanyById(company_id);
             companyName.setText(company.getName());
             companyAddress.setText(company.getAddress());
@@ -88,18 +97,59 @@ import java.util.List;
             }
             companyLogo.setImageUrl("http://sakadigital.id/assets/img/paperplane.png", imageLoader);
 
-
+/*
+            mToolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-          //  handleIntent(getIntent());
-            if (token.equals("hasbyGanteng")) {
+*/
+            if (database.isProject(company_id)) {
+                displayList(query);
+            } else {
                 TextView textView = (TextView) findViewById(R.id.notification);
                 textView.setText("There's no prototypes.");
-            } else {
+            }
+        }
+
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            getMenuInflater().inflate(R.menu.menu_project_list_dev, menu);
+
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            MenuItem searchViewa = menu.findItem(R.id.action_search);
+            SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewa);
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(false);
+            searchView.setOnQueryTextListener(this);
+            searchView.setOnCloseListener(this);
+            return super.onCreateOptionsMenu(menu);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_sign_out :
+                    editor.clear();
+                    editor.commit();
+
+                    // After logout redirect user to Loing Activity
+                    Intent i = new Intent(this, SignInActivity.class);
+
+                    // Add new Flag to start new Activity
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    // Staring Login Activity
+                    getApplicationContext().startActivity(i);
+                    finish();
+                    return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+        public  void displayList(String query){
                 myAdapter = new customAdapter();
                 myListView.setAdapter(myAdapter);
                 myListView.setTextFilterEnabled(true);
+
                 myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,33 +165,24 @@ import java.util.List;
                     }
                 });
 
-            }
         }
 
         @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            getMenuInflater().inflate(R.menu.menu_project_list_dev, menu);
-
-            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-            SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-/*            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(ProjectListDev.this, "Search clicked !!", Toast.LENGTH_LONG).show();
-                }
-            });
-*/
-            return true;
+        public boolean onClose() {
+            filterData("");
+            return false;
         }
 
         @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == R.id.action_settings) {
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
+        public boolean onQueryTextSubmit(String query) {
+            filterData(query);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText){
+            filterData(newText);
+            return  false;
         }
 
         public class customAdapter extends BaseAdapter {
@@ -223,14 +264,43 @@ import java.util.List;
 
             for (Project value : ProjectList) {
                 //value = new Project();
-                dataProject project = new dataProject();
-                project.nama = value.getName();
-                project.description = value.getDescription();
-                project.type = value.getType();
-                project.prototype = value.getPrototype();
-                project.urlLogo = value.getLogo();
-                dataProjectList.add(project);
+                if (query.equals("")) {
+                    dataProject project = new dataProject();
+                    project.nama = value.getName();
+                    project.description = value.getDescription();
+                    project.type = value.getType();
+                    project.prototype = value.getPrototype();
+                    project.urlLogo = value.getLogo();
+                    dataProjectList.add(project);
+                }
+                else {
+                    if(value.getName().toLowerCase().contains(query) || value.getDescription().toLowerCase().contains(query)) {
+                        dataProject project = new dataProject();
+                        project.nama = value.getName();
+                        project.description = value.getDescription();
+                        project.type = value.getType();
+                        project.prototype = value.getPrototype();
+                        project.urlLogo = value.getLogo();
+                        dataProjectList.add(project);
+                    }
+                }
+
             }
             return dataProjectList;
+        }
+
+        public void filterData(String query){
+
+            query = query.toLowerCase();
+            //myListView.clearTextFilter();
+            this.query = query;
+
+            if(query.isEmpty()) {
+                displayList("");
+            }
+            else{
+                displayList(query);
+            }
+
         }
     }

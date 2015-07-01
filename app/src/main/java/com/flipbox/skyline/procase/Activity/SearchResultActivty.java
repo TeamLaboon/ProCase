@@ -9,6 +9,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.flipbox.skyline.procase.R;
 
@@ -42,6 +43,8 @@ public class SearchResultActivty extends ActionBarActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             //use the query to search your data somehow
+            TextView textView = (TextView)findViewById(R.id.qury);
+            textView.setText(query);
         }
     }
 }

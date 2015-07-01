@@ -3,7 +3,9 @@ package com.flipbox.skyline.procase.Activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,16 +45,23 @@ public class SignInActivity extends Activity {
     private ProgressDialog pDialog;             // Progress dialog
     private DataBaseHandler database;
     private Intent projectListDev;
+    private
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     public final static String EXTRA_MESSAGE_CID = "com.flipbox.skyline.procase.Activity.MESSAGCID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        database = new DataBaseHandler(this);
         projectListDev = new Intent(this,ProjectListDev.class);
+        sharedPreferences = getApplicationContext().getSharedPreferences("DataClient", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        checkStatusLogin();
 
+        database = new DataBaseHandler(this);
     }
+
     private void checkToken(final String token){
         pDialog = new ProgressDialog(SignInActivity.this);
         pDialog.setMessage("Connecting to server...");
@@ -69,7 +78,16 @@ public class SignInActivity extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 pDialog.dismiss();
-                Toast.makeText(SignInActivity.this, "User ID salah !!", Toast.LENGTH_LONG).show();
+                pDialog.setMessage("Checking database...");
+                pDialog.show();
+                if(database.isToken(token)){
+                    pDialog.dismiss();
+                    successLogin(token);
+                }
+                else{
+                    pDialog.dismiss();
+                    Toast.makeText(SignInActivity.this, "User ID salah !!", Toast.LENGTH_LONG).show();
+                }
             }
         });
         //adding request to request queue
@@ -154,23 +172,32 @@ public class SignInActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 hidepDialog();
-                projectListDev.putExtra(EXTRA_MESSAGE_CID, token);
-                startActivity(projectListDev);
-                finish();
+                successLogin(token);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 hidepDialog();
-                projectListDev.putExtra(EXTRA_MESSAGE_CID, "hasbyGanteng");
-                startActivity(projectListDev);
-                finish();
+                successLogin(token);
             }
         });
         //adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }
 
+    private void checkStatusLogin(){
+        if(sharedPreferences.getBoolean("login",false)) {
+            startActivity(projectListDev);
+            finish();
+        }
+    }
+    private void successLogin(String token){
+        editor.putBoolean("login", true);
+        editor.putString("token",token);
+        editor.commit();
+        startActivity(projectListDev);
+        finish();
+    }
     private void showpDialog(String message){
         if(!pDialog.isShowing()) {
             pDialog.setMessage(message);
@@ -191,33 +218,8 @@ public class SignInActivity extends Activity {
         } else {
             checkToken(textClientid);
         }
-
-
         YoYo.with(Techniques.Wobble).duration(700).playOn(findViewById(R.id.textHeader));
     }
 
 
-
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sign_in, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }
