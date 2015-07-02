@@ -1,4 +1,4 @@
-package com.flipbox.skyline.procase.Activity.util;
+package com.flipbox.skyline.procase.app;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;

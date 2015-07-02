@@ -6,29 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.internal.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -43,8 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import android.support.v7.widget.SearchView;
 
-
-    //public class ProjectListDev extends ActionBarActivity implements OnQueryTextListener {
     public class ProjectListDev extends ActionBarActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
         public static final String DEFAULT = "N/A";
         private SharedPreferences sharedPreferences;
@@ -77,8 +64,6 @@ import android.support.v7.widget.SearchView;
             setContentView(R.layout.activity_project_list_dev);
             myListView = (ListView) findViewById(R.id.list);
 
-
-            Intent intent = getIntent();
             sharedPreferences = getApplicationContext().getSharedPreferences("DataClient", Context.MODE_PRIVATE);
             editor = sharedPreferences.edit();
             token = sharedPreferences.getString("token", DEFAULT);
@@ -263,7 +248,6 @@ import android.support.v7.widget.SearchView;
             ArrayList<Project> ProjectList = database.getAllProjectsByCompanyId(company_id);
 
             for (Project value : ProjectList) {
-                //value = new Project();
                 if (query.equals("")) {
                     dataProject project = new dataProject();
                     project.nama = value.getName();
@@ -292,7 +276,6 @@ import android.support.v7.widget.SearchView;
         public void filterData(String query){
 
             query = query.toLowerCase();
-            //myListView.clearTextFilter();
             this.query = query;
 
             if(query.isEmpty()) {

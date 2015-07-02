@@ -1,20 +1,17 @@
 <resources>
     <string name="app_name">ProCase</string>
 
+    <string name="title_activity_splash">Procase</string>
+
+    <string name="enter_client_id">Please Enter Your Token</string>
+    <string name="dummy_content">PROTOCASE</string>
+    <string name="dummy_button">Sign In</string>
+
+    <string name="title_activity_project_list_dev">All Project List</string>
     <string name="action_sign_out">Sign Out</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Search Prototype</string>
 
-    <string name="title_activity_project_list">ProjectList</string>
     <string name="title_activity_project_description">ProjectDescription</string>
 
-    <string name="enter_client_id">Please Enter Your Token</string>
-    <string name="title_activity_project_list_dev">All Project List</string>
-
-    <string name="title_activity_landing_page">PROTOTYPE SHOWCASE</string>
-    <string name="dummy_button">Sign In</string>
-    <string name="dummy_content">PROTOCASE</string>
-    <string name="title_activity_prototype">PrototypeActivity</string>
-    <string name="title_activity_search_result_activty">SearchResultActivty</string>
-    <string name="title_activity_splash">Procase</string>
 </resources>

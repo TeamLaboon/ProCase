@@ -22,7 +22,6 @@ public class ProjectDescription extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_project_description);
         Bundle intent = getIntent().getExtras();
-        //String name = intent.getString(ProjectList.EXTRA_MESSAGE_NAME);
         String prototype = intent.getString(ProjectListDev.EXTRA_MESSAGE_PROTOTYPE);
       //  TextView textName = (TextView)findViewById(R.id.textView6);
       //  TextView textDesc = (TextView)findViewById(R.id.textView7);

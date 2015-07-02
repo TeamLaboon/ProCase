@@ -49,6 +49,7 @@ public class SignInActivity extends Activity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     public final static String EXTRA_MESSAGE_CID = "com.flipbox.skyline.procase.Activity.MESSAGCID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +92,6 @@ public class SignInActivity extends Activity {
             }
         });
         //adding request to request queue
-
         AppController.getInstance().addToRequestQueue(req);
     }
 
@@ -220,6 +220,5 @@ public class SignInActivity extends Activity {
         }
         YoYo.with(Techniques.Wobble).duration(700).playOn(findViewById(R.id.textHeader));
     }
-
 
 }

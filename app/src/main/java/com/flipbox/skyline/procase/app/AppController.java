@@ -7,7 +7,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.flipbox.skyline.procase.Activity.util.LruBitmapCache;
 
 public class AppController extends Application {
 
