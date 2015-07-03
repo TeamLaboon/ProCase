@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class DataBaseHandler extends SQLiteOpenHelper {
     // database version, name, table, colums
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
     private static final String DATABASE_NAME = "protocase";
     private static final String TABLE_COMPANY = "company";
     private static final String TABLE_PROJECT = "project";
@@ -21,6 +21,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COMPANY_NAME = "name";
     private static final String COMPANY_TOKEN = "token";
     private static final String COMPANY_ADDRESS = "address";
+    private static final String COMPANY_LOGO = "logo";
     private static final String PROJECT_ID = "id";
     private static final String PROJECT_COMPANY_ID = "company_id";
     private static final String PROJECT_NAME = "name";
@@ -40,7 +41,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + COMPANY_ID +" VARCHAR(50), "
                 + COMPANY_NAME +" VARCHAR(100), "
                 + COMPANY_ADDRESS +" VARCHAR(10), "
-                + COMPANY_TOKEN +" VARCHAR(50) );";
+                + COMPANY_TOKEN +" VARCHAR(10), "
+                + COMPANY_LOGO +" VARCHAR(50) );";
         db.execSQL(CREATE_TABLE_COMPANY);
 
         String CREATE_TABLE_PROJECT = "CREATE TABLE "+ TABLE_PROJECT +" ("
@@ -73,6 +75,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         values.put(COMPANY_NAME, company.getName()); // CLient Name
         values.put(COMPANY_ADDRESS, company.getAddress()); // CLient Name
         values.put(COMPANY_TOKEN, company.getToken()); // CLient Logo
+        values.put(COMPANY_LOGO, company.getLogo()); // CLient Logo
 
         // memasukkan data
         db.insert(TABLE_COMPANY, null, values);
@@ -105,12 +108,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             if (cursor != null)
             cursor.moveToFirst();
 
-            Company company = new Company(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            Company company = new Company(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
                 // return company
             return company;
         }
         catch (Exception e) {
-            return new Company(Integer.parseInt("0"), "", "", "");
+            return new Company(Integer.parseInt("0"), "", "", "", "");
         }
     }
 
@@ -239,6 +242,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         values.put(COMPANY_NAME, company.getName()); // CLient Name
         values.put(COMPANY_ADDRESS, company.getAddress()); // CLient Name
         values.put(COMPANY_TOKEN, company.getToken()); // CLient Logo
+        values.put(COMPANY_LOGO, company.getLogo()); // CLient Logo
 
         // mengubah data
         return db.update(TABLE_COMPANY, values, COMPANY_ID + " = ?",

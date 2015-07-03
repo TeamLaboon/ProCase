@@ -1,7 +1,9 @@
 package com.flipbox.skyline.procase.Activity;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +28,6 @@ import com.flipbox.skyline.procase.Database.DataBaseHandler;
 import com.flipbox.skyline.procase.Database.Project;
 import com.flipbox.skyline.procase.R;
 import com.flipbox.skyline.procase.app.AppController;
-import com.flipbox.skyline.procase.app.JSONParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,8 @@ import android.support.v7.widget.SearchView;
         private ListView myListView;
         private DataBaseHandler database;
         ImageLoader imageLoader = AppController.getInstance().getmImageLoader();
-        JSONParser jsonParser;
         private Toolbar mToolbar;
+        TextView textView;
         private int company_id;
         private String token;
         public final static String EXTRA_MESSAGE_NAME = "com.flipbox.skyline.procase.MESSAGENAME";
@@ -63,6 +64,7 @@ import android.support.v7.widget.SearchView;
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_project_list_dev);
             myListView = (ListView) findViewById(R.id.list);
+            textView = (TextView) findViewById(R.id.notification);
 
             sharedPreferences = getApplicationContext().getSharedPreferences("DataClient", Context.MODE_PRIVATE);
             editor = sharedPreferences.edit();
@@ -80,7 +82,7 @@ import android.support.v7.widget.SearchView;
             if (imageLoader == null) {
                 imageLoader = AppController.getInstance().getmImageLoader();
             }
-            companyLogo.setImageUrl("http://sakadigital.id/assets/img/paperplane.png", imageLoader);
+            companyLogo.setImageUrl(company.getLogo(), imageLoader);
 
 /*
             mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,10 +90,9 @@ import android.support.v7.widget.SearchView;
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 */
             if (database.isProject(company_id)) {
-                displayList(query);
+                displayList();
             } else {
-                TextView textView = (TextView) findViewById(R.id.notification);
-                textView.setText("There's no prototypes.");
+                textView.setText("There're no prototypes.");
             }
         }
 
@@ -102,7 +103,7 @@ import android.support.v7.widget.SearchView;
             SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             MenuItem searchViewa = menu.findItem(R.id.action_search);
             SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewa);
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getCallingActivity()));
             searchView.setIconifiedByDefault(false);
             searchView.setOnQueryTextListener(this);
             searchView.setOnCloseListener(this);
@@ -113,27 +114,47 @@ import android.support.v7.widget.SearchView;
         public boolean onOptionsItemSelected(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_sign_out :
-                    editor.clear();
-                    editor.commit();
+                    new AlertDialog.Builder(this)
+                            .setTitle("Sign Out")
+                            .setMessage("Are you sure you want to sign out ?")
+                            .setPositiveButton(R.string.alert_yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    editor.clear();
+                                    editor.commit();
 
-                    // After logout redirect user to Loing Activity
-                    Intent i = new Intent(this, SignInActivity.class);
+                                    // After logout redirect user to Loing Activity
+                                    Intent i = new Intent(ProjectListDev.this, SignInActivity.class);
 
-                    // Add new Flag to start new Activity
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    // Add new Flag to start new Activity
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    // Staring Login Activity
-                    getApplicationContext().startActivity(i);
-                    finish();
+                                    // Staring Login Activity
+                                    getApplicationContext().startActivity(i);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton(R.string.alert_no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            })
+                            .setIcon(R.drawable.ic_dialog_alert)
+                            .show();
                     return true;
+
             }
             return super.onOptionsItemSelected(item);
         }
 
-        public  void displayList(String query){
+        public  void displayList(){
                 myAdapter = new customAdapter();
                 myListView.setAdapter(myAdapter);
                 myListView.setTextFilterEnabled(true);
+
+            if(myListView.getCount()<=0)
+                textView.setText("There're no result for '"+query+"'.");
+            else
+                textView.setText("");
 
                 myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -279,10 +300,10 @@ import android.support.v7.widget.SearchView;
             this.query = query;
 
             if(query.isEmpty()) {
-                displayList("");
+                displayList();
             }
             else{
-                displayList(query);
+                displayList();
             }
 
         }

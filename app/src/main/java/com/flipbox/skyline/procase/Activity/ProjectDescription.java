@@ -1,6 +1,8 @@
 package com.flipbox.skyline.procase.Activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,10 +15,14 @@ import com.flipbox.skyline.procase.R;
 
 
 public class ProjectDescription extends Activity {
+    private ProgressDialog pDialog;             // Progress dialog
+    WebView myWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pDialog= new ProgressDialog(ProjectDescription.this);
+        showpDialog("Please wait...");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -27,7 +33,7 @@ public class ProjectDescription extends Activity {
       //  TextView textDesc = (TextView)findViewById(R.id.textView7);
       //  textName.setText(name);
      //   textDesc.setText(desc);
-        WebView myWebView = (WebView)findViewById(R.id.webView);
+        myWebView = (WebView)findViewById(R.id.webView);
 
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -42,6 +48,13 @@ public class ProjectDescription extends Activity {
             webView.loadUrl(url);
             return true;
         }
+
+        @Override
+        public void onLoadResource(WebView view, String url) {
+            if(myWebView.getProgress()>=55)
+                hidepDialog();
+        }
+
         @Override
         public void onPageFinished(WebView view, String url)
         {
@@ -50,4 +63,15 @@ public class ProjectDescription extends Activity {
         }
     }
 
+    private void showpDialog(String message){
+        if(!pDialog.isShowing()) {
+            pDialog.setMessage(message);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+    }
+    private void hidepDialog(){
+        if(pDialog.isShowing())
+            pDialog.dismiss();
+    }
 }

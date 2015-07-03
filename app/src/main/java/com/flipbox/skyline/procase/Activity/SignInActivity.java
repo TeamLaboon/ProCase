@@ -1,47 +1,36 @@
 package com.flipbox.skyline.procase.Activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.flipbox.skyline.procase.Database.Client;
 import com.flipbox.skyline.procase.Database.Company;
-import com.flipbox.skyline.procase.Database.User;
 import com.flipbox.skyline.procase.Database.DataBaseHandler;
 import com.flipbox.skyline.procase.Database.Project;
 import com.flipbox.skyline.procase.R;
 import com.flipbox.skyline.procase.app.AppController;
-import com.flipbox.skyline.procase.app.JSONParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 
 public class SignInActivity extends Activity {
     private String urlJsonCompanies = "http://protocase.sakadigital.id/api/companies";              // json object response url
     private String urlJsonPrototypes = "http://protocase.sakadigital.id/api/company_prototypes";    // json array response url
-    private static String TAG = JSONParser.class.getSimpleName();
+    private static String TAG = SignInActivity.class.getSimpleName();
     private ProgressDialog pDialog;             // Progress dialog
     private DataBaseHandler database;
     private Intent projectListDev;
@@ -56,6 +45,7 @@ public class SignInActivity extends Activity {
         setContentView(R.layout.activity_sign_in);
 
         projectListDev = new Intent(this,ProjectListDev.class);
+        pDialog = new ProgressDialog(SignInActivity.this);
         sharedPreferences = getApplicationContext().getSharedPreferences("DataClient", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         checkStatusLogin();
@@ -64,9 +54,7 @@ public class SignInActivity extends Activity {
     }
 
     private void checkToken(final String token){
-        pDialog = new ProgressDialog(SignInActivity.this);
-        pDialog.setMessage("Connecting to server...");
-        pDialog.show();
+        showpDialog("Connecting to server...");
 
         String url = "http://protocase.sakadigital.id/api/companies" +"?token="+ token;
         JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>(){
@@ -78,16 +66,14 @@ public class SignInActivity extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                pDialog.dismiss();
-                pDialog.setMessage("Checking database...");
-                pDialog.show();
+                showpDialog("Checking database...");
                 if(database.isToken(token)){
                     pDialog.dismiss();
                     successLogin(token);
                 }
                 else{
                     pDialog.dismiss();
-                    Toast.makeText(SignInActivity.this, "User ID salah !!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, "Token salah !!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -110,13 +96,14 @@ public class SignInActivity extends Activity {
                         String name = company.getString("name");
                         String address = company.getString("address");
                         String _token = company.getString("token");
+                        String _logo = company.getString("logo");
 
                         Company cek_company = database.getCompanyById(Integer.parseInt(id));
                         if(cek_company.getID()==0){
-                            database.addCompany(new Company(Integer.parseInt(id), name, address, _token));
+                            database.addCompany(new Company(Integer.parseInt(id), name, address, _token, _logo));
                         }
                         else{
-                            database.updateCompany(new Company(Integer.parseInt(id), name, address, _token));
+                            database.updateCompany(new Company(Integer.parseInt(id), name, address, _token, _logo));
                         }
                         insertPrototypeIntoDatabseByCompanyId(Integer.parseInt(id), token);
                     }
@@ -201,6 +188,7 @@ public class SignInActivity extends Activity {
     private void showpDialog(String message){
         if(!pDialog.isShowing()) {
             pDialog.setMessage(message);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
     }

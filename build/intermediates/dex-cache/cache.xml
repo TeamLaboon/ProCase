@@ -2,6 +2,34 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\classes-e270954a9d5dbdf7b434a8b1bce5fbe056230366.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\libs\glide-3.6.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a7537446a030da8eb0da4c71424d16c2589f6c4a">
+        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\glide-3.6.0-31c0c399a38efe88cfaa9b51872db15ce3677edf.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.daimajia.easing\library\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d7e947f993bf32a00fcb3078cdda8bb11c930afb">
+        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\classes-800f8d29447aba8a0b934d477d2e99f7a1dbfae8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hasby\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\library-2.4.0-838cd3b0593b8dd6f4d0f0b64ff511c36a45206a.jar" />
+    </item>
+    <item
         jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -16,34 +44,6 @@
         <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\volley-f31a8cff50f1a71b91244d5ae8f3f76ad8da329c.jar" />
     </item>
     <item
-        jar="C:\Users\Hasby\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\library-2.4.0-838cd3b0593b8dd6f4d0f0b64ff511c36a45206a.jar" />
-    </item>
-    <item
-        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\libs\glide-3.6.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a7537446a030da8eb0da4c71424d16c2589f6c4a">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\glide-3.6.0-31c0c399a38efe88cfaa9b51872db15ce3677edf.jar" />
-    </item>
-    <item
-        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\classes-8a464c5ca6514261e068d0d02a38b8da9c08ded8.jar" />
-    </item>
-    <item
-        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\classes-e270954a9d5dbdf7b434a8b1bce5fbe056230366.jar" />
-    </item>
-    <item
         jar="C:\Users\Hasby\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -51,11 +51,11 @@
         <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-d9f83fcf0c5ac7b44def170e1ac37e7a7d7e44a2.jar" />
     </item>
     <item
-        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.daimajia.easing\library\1.0.1\jars\classes.jar"
+        jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="d7e947f993bf32a00fcb3078cdda8bb11c930afb">
-        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\classes-800f8d29447aba8a0b934d477d2e99f7a1dbfae8.jar" />
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\pre-dexed\debug\classes-2fd1c98e5c9939d76dc43b3069e850ff7c75e256.jar" />
     </item>
     <item
         jar="C:\Users\Hasby\AndroidStudioProjects\ProCase\app\build\intermediates\exploded-aar\com.daimajia.androidanimations\library\1.1.3\jars\classes.jar"

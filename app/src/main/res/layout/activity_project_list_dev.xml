@@ -4,7 +4,11 @@
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
-    tools:context="com.flipbox.skyline.procase.Activity.ProjectListDev">
+    tools:context="com.flipbox.skyline.procase.Activity.ProjectListDev"
+    android:isScrollContainer="true"
+    android:fadeScrollbars="true"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbars="vertical">
 <!--
     <include
         android:id="@+id/toolbar"
@@ -13,8 +17,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
-        tools:context="com.flipbox.skyline.procase.Activity.ProjectListDev">
+        android:background="@color/background" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -23,7 +26,8 @@
                 android:id="@+id/companyName"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:paddingBottom="10dp" />
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"/>
 
             <com.android.volley.toolbox.NetworkImageView
                 android:layout_width="150dp"
@@ -54,6 +58,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/notification"
+        android:layout_gravity="center"
+        android:textColor="@color/colorAccent"
+        android:paddingTop="10dp"
+        android:textSize="15dp"
+        android:textStyle="italic"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 </LinearLayout>

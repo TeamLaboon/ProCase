@@ -19,6 +19,7 @@
             android:id="@+id/editText"
             android:layout_gravity="center_vertical"
             android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
             android:gravity="center|top"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />

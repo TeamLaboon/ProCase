@@ -7,18 +7,21 @@ public class Company {
     private String _name;
     private String _token;
     private String _address;
+    private String _logo;
 
     public Company(){}
-    public Company(String name, String address, String token){
+    public Company(String name, String address, String token, String logo){
         this._name = name;
         this._token = token;
         this._address = address;
+        this._logo = logo;
     }
-    public Company(int id, String name, String address, String token){
+    public Company(int id, String name, String address, String token, String logo){
         this._id = id;
         this._name = name;
         this._token = token;
         this._address = address;
+        this._logo = logo;
     }
 
     public int getID(){ return this._id; }
@@ -32,4 +35,7 @@ public class Company {
 
     public String getAddress(){ return this._address; }
     public void setAddress(String address){ this._address = address; }
+
+    public String getLogo(){ return this._logo; }
+    public void setLogo(String logo){ this._logo = logo; }
 }
